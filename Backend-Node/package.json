@@ -1,0 +1,29 @@
+{
+  "name": "Backend-Node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "production": "pm2 start index.js --name my-backend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "consign": "^0.1.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "jwt-simple": "^0.5.6",
+    "knex": "^1.0.3",
+    "moment": "^2.29.1",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
+    "pg": "^8.7.3",
+    "pm2": "^5.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
