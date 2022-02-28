@@ -1,11 +1,11 @@
 {
-  "name": "Backend-Node",
+  "name": "backend-node",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
-    "production": "pm2 start index.js --name my-backend"
+    "production": "pm2 start index.js --name node-backend"
   },
   "keywords": [],
   "author": "",
