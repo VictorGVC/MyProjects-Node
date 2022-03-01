@@ -6,7 +6,6 @@ const { db } = require('./db.env')
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 
- console.log(db)
 module.exports = {
 		
 	client: 'postgresql',
