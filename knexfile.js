@@ -6,6 +6,7 @@ const { db } = require('./db.env')
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 
+// Informations to do the connection with database
 module.exports = {
 		
 	client: 'postgresql',

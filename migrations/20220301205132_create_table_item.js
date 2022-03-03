@@ -2,6 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
+// Create item table
 exports.up = function(knex) {
     return knex.schema.createTable('item', table => {
         table.increments('it_id').primary()
@@ -16,6 +17,7 @@ exports.up = function(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
+// Drop item table
 exports.down = function(knex) {
     return knex.schema.dropTable('item')
 };

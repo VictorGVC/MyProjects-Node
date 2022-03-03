@@ -1,12 +1,15 @@
+// load modules
 const app = require('express')()
 const consign = require('consign')
 const db = require('./config/db')
 
 app.db = db
 
+// load modules with consign
 consign()
     .then('./config/middlewares.js')
-    .then('./api')
+    .then('./api/validation.js')
+    .then('./api/user.js')
     .then('./config/routes.js')
     .into(app)
 

@@ -2,6 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
+// Create project table
 exports.up = function(knex) {
     return knex.schema.createTable('project', table => {
         table.increments('pro_id').primary()
@@ -18,6 +19,7 @@ exports.up = function(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
+// Drop project table
 exports.down = function(knex) {
     return knex.schema.dropTable('project')
 };
