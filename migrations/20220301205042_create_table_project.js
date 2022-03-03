@@ -10,7 +10,7 @@ exports.up = function(knex) {
         table.string('pro_description', 1000)
         table.string('pro_readme', 200)
         table.string('pro_link', 200)
-        table.string('us_id', 50).notNullable()
+        table.integer('us_id').notNullable()
             .references('us_id').inTable('user')
     })
 };

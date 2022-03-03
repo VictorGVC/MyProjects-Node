@@ -20,5 +20,5 @@ exports.up = function(knex) {
  */
 // Drop project_item table
 exports.down = function(knex) {
-    knex.schema.dropTable('project_item')
+    return knex.schema.dropTable('project_item')
 };

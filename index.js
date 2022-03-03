@@ -2,7 +2,9 @@
 const app = require('express')()
 const consign = require('consign')
 const db = require('./config/db')
+const utils = require('./utils')
 
+app.utils = utils
 app.db = db
 
 // load modules with consign

@@ -6,8 +6,9 @@
 // create user table
 exports.up = function(knex) {
     return knex.schema.createTable('user', table => {
-        table.string('us_id', 50).primary()
-        table.string('us_password', 50).notNullable()
+        table.increments('us_id').primary()
+        table.string('us_username', 50).notNullable()
+        table.string('us_password', 300).notNullable()
         table.boolean('us_admin').notNullable().defaultTo(false)
         table.string('us_github', 200)
         table.string('us_linkedin', 200)
