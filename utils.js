@@ -2,9 +2,9 @@
 function cloneObjWithDBPrefix(obj, prefix) {
     let newObj = {}
     Object.keys(obj).map(key => {
-        newObj[prefix+key] = obj[key]
+        newObj[prefix + key] = obj[key]
     })
     return newObj
 }
 
-module.exports = {cloneObjWithDBPrefix}
+module.exports = { cloneObjWithDBPrefix }

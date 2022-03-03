@@ -62,7 +62,15 @@ module.exports = app => {
     }
 
     const get = (req, res) => {
-        return res.status(400).send('aoba')
+        app.db('user')
+            .select('us_id as id', 
+                'us_username as username', 
+                'us_admin as admin', 
+                'us_github as github', 
+                'us_linkedin as linkedin',
+                'us_photo as photo')
+            .then(users => res.json(users))       
+            .catch(err => res.status(500).send(err)) 
     }
 
     return { save, get }
