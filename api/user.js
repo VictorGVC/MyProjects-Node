@@ -63,15 +63,29 @@ module.exports = app => {
 
     const get = (req, res) => {
         app.db('user')
-            .select('us_id as id', 
-                'us_username as username', 
-                'us_admin as admin', 
-                'us_github as github', 
+            .select('us_id as id',
+                'us_username as username',
+                'us_admin as admin',
+                'us_github as github',
                 'us_linkedin as linkedin',
                 'us_photo as photo')
-            .then(users => res.json(users))       
-            .catch(err => res.status(500).send(err)) 
+            .then(users => res.json(users))
+            .catch(err => res.status(500).send(err))
     }
 
-    return { save, get }
+    const getById = (req, res) => {
+        const id = req.params.id
+        app.db('user')
+            .select('us_id as id',
+                'us_username as username',
+                'us_admin as admin',
+                'us_github as github',
+                'us_linkedin as linkedin',
+                'us_photo as photo')
+            .where({us_id: id})
+            .then(user => res.json(user))
+            .catch(err => res.status(500).send(err))
+    }
+
+    return { save, get, getById }
 }
