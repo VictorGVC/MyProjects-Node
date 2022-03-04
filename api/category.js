@@ -12,7 +12,7 @@ module.exports = app => {
 
         try {
             // Validates if 
-            notExistsError(category.name, 'Empty name')            
+            notExistsError(category.name, 'Empty name')
 
             // Validates whether the category is being created or edited
             const categoryFromDB = await app.db('category')
@@ -29,7 +29,6 @@ module.exports = app => {
         // Creating an object with the same key names of the db
         const categoryToDB = app.utils.cloneObjWithDBPrefix(category, 'cat_')
 
-        console.log(categoryToDB)
         // edit category
         if (category.id) {
             app.db('category')
@@ -46,5 +45,16 @@ module.exports = app => {
         return res.status(200)
     }
 
-    return { save }
+    // get all categories
+    const get = (req, res) => {
+        app.db('category')
+            .select('cat_id as id',
+                'cat_name as name',
+                'cat_description as description'
+            )
+            .then(categories => res.json(categories))
+            .catch(err => res.status(500).send(err))
+    }
+
+    return { save, get }
 }

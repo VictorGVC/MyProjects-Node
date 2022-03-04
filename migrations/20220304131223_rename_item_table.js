@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-    knex.schema.renameTable('item', 'category_item')
+    return knex.schema.renameTable('item', 'category_item')
 };
 
 /**
@@ -11,5 +11,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-    knex.schema.renameTable('category_item', 'item')
+    return knex.schema.renameTable('category_item', 'item')
 };

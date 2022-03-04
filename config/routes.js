@@ -10,6 +10,7 @@ module.exports = app => {
 
     app.route('/category')
         .post(app.api.category.save)
+        .get(app.api.category.get)
     
     app.route('/category/:id')
         .put(app.api.category.save)
