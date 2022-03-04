@@ -51,10 +51,21 @@ module.exports = app => {
             .select('cat_id as id',
                 'cat_name as name',
                 'cat_description as description'
-            )
+            ).then(categories => res.json(categories))
+            .catch(err => res.status(500).send(err))
+    }
+
+    // get category by id
+    const getById = (req, res) => {
+        const id = req.params.id
+        app.db('category')
+            .select('cat_id as id',
+                'cat_name as name',
+                'cat_description as description'
+            ).where({ cat_id: id }).first()
             .then(categories => res.json(categories))
             .catch(err => res.status(500).send(err))
     }
 
-    return { save, get }
+    return { save, get, getById }//, remove}
 }
