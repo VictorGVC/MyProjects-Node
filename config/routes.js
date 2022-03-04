@@ -4,7 +4,7 @@ module.exports = app => {
         .get(app.api.user.get)
         
     app.route('/user/:id')
-        .post(app.api.user.save)
+        .put(app.api.user.save)
         .get(app.api.user.getById)
         .delete(app.api.user.remove)
 
@@ -12,5 +12,5 @@ module.exports = app => {
         .post(app.api.category.save)
     
     app.route('/category/:id')
-        .post(app.api.category.save)
+        .put(app.api.category.save)
 }
