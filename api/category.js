@@ -75,7 +75,7 @@ module.exports = app => {
                 .where({ cat_id: id }).first()
                 .del()
             notExistsError(rowsDeleted, 'Category not found')
-
+            res.status(204).send()
         } catch (msg) {
             res.status(500).send(msg)
         }
@@ -83,8 +83,12 @@ module.exports = app => {
 
     // add an item to the category
     // const addItem = (req, res) => {
+        
+    //     const categoryItem = { ...req.body }
+
+    //     category.id = req.params.id
 
     // }
 
-    return { save, get, getById, remove }
+    return { save, get, getById, remove, addItem }
 }

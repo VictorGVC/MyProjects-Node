@@ -23,7 +23,8 @@ module.exports = app => {
     }
 
     function notIncrementIdError(value, msg) {
-        if(value || isNaN(value) || value <= 0)
+        
+        if(!value || isNaN(value) || value <= 0)
             throw msg
     }
 

@@ -80,7 +80,7 @@ module.exports = app => {
             app.db('project')
                 .where({ pro_id: id }).first()
                 .del()
-                res.status(204).send()
+            res.status(204).send()
         } catch (error) {
             res.status(500).send(error)
         }
