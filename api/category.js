@@ -42,7 +42,6 @@ module.exports = app => {
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         }
-        return res.status(200)
     }
 
     // get all categories
@@ -67,5 +66,15 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    return { save, get, getById }//, remove}
+    // delete category by id
+    const remove = (req, res) => {
+        const id = req.params.id
+        app.db('category')
+            .where({ cat_id: id }).first()
+            .del()
+            .then(_ => res.status(204).send())
+            .catch(err => res.status(500).send(err))
+    }
+
+    return { save, get, getById, remove }
 }
