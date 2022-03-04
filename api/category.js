@@ -2,7 +2,7 @@ module.exports = app => {
     // import validations
     const { notEqualsError, notExistsError, existsError } = app.api.utils.functions.validation
 
-    // insert or edit an category
+    // insert or edit a category
     const save = async (req, res) => {
         // Cloning the body to category object
         const category = { ...req.body }
@@ -11,7 +11,7 @@ module.exports = app => {
             category.id = req.params.id
 
         try {
-            // Validates if 
+            // Validate fields
             notExistsError(category.name, 'Empty name')
 
             // Validates whether the category is being created or edited

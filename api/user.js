@@ -18,7 +18,7 @@ module.exports = app => {
             user.id = req.params.id
 
         try {
-            // Validates if 
+            // Validate fields
             notExistsError(user.username, 'Empty username')
             notExistsError(user.password, 'Empty password')
             notExistsError(user.confirmPassword, 'Invalid confirmation password')
