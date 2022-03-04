@@ -74,11 +74,16 @@ module.exports = app => {
     // delete project by id
     const remove = (req, res) => {
         const id = req.params.id
-        app.db('project')
-            .where({ pro_id: id }).first()
-            .del()
-            .then(_ => res.status(204).send())
-            .catch(err => res.status(500).send(err))
+
+        try {
+            notIncrementIdError(id, 'Invalid id')
+            app.db('project')
+                .where({ pro_id: id }).first()
+                .del()
+                res.status(204).send()
+        } catch (error) {
+            res.status(500).send(error)
+        }
     }
 
     return { save, get, getById, remove }

@@ -1,6 +1,6 @@
 module.exports = app => {
     // import validations
-    const { notEqualsError, notExistsError, existsError } = app.api.utils.functions.validation
+    const { notEqualsError, notExistsError, existsError,  notIncrementIdError} = app.api.utils.functions.validation
 
     // insert or edit a category
     const save = async (req, res) => {
@@ -67,14 +67,24 @@ module.exports = app => {
     }
 
     // delete category by id
-    const remove = (req, res) => {
-        const id = req.params.id
-        app.db('category')
-            .where({ cat_id: id }).first()
-            .del()
-            .then(_ => res.status(204).send())
-            .catch(err => res.status(500).send(err))
+    const remove = async (req, res) => {
+        try {
+            const id = req.params.id
+            notIncrementIdError(id, 'Invalid id')
+            const rowsDeleted = await app.db('category')
+                .where({ cat_id: id }).first()
+                .del()
+            notExistsError(rowsDeleted, 'Category not found')
+
+        } catch (msg) {
+            res.status(500).send(msg)
+        }
     }
+
+    // add an item to the category
+    // const addItem = (req, res) => {
+
+    // }
 
     return { save, get, getById, remove }
 }

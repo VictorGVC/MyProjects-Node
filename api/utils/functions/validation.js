@@ -22,5 +22,10 @@ module.exports = app => {
         if (valueA !== valueB) throw msg
     }
 
-    return { notEqualsError, notExistsError, existsError }
+    function notIncrementIdError(value, msg) {
+        if(value || isNaN(value) || value <= 0)
+            throw msg
+    }
+
+    return { notEqualsError, notExistsError, existsError, notIncrementIdError }
 }
