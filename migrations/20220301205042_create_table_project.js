@@ -12,6 +12,7 @@ exports.up = function(knex) {
         table.string('pro_link', 200)
         table.integer('us_id').notNullable()
             .references('us_id').inTable('user')
+            .onDelete('CASCADE')
     })
 };
 

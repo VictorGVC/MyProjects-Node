@@ -7,8 +7,11 @@ exports.up = function(knex) {
     return knex.schema.createTable('project_item', table => {
         table.integer('it_id')
             .references('it_id').inTable('item')
+            .onDelete('CASCADE')
+
         table.integer('pro_id')
             .references('pro_id').inTable('project')
+            .onDelete('CASCADE')
 
         table.primary(['it_id', 'pro_id'])
     })

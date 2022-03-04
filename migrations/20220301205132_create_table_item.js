@@ -10,6 +10,7 @@ exports.up = function(knex) {
         table.string('it_image', 300)
         table.integer('cat_id', 50).notNullable()
             .references('cat_id').inTable('category')
+            .onDelete('CASCADE')
     })
 };
 

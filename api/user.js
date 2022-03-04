@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
     // import validations
-    const { notEqualsError, notExistsError, existsError } = app.api.validation
+    const { notEqualsError, notExistsError, existsError } = app.api.utils.functions.validation
 
     const encryptPassword = password => {
         const salt = bcrypt.genSaltSync(10)
@@ -50,9 +50,7 @@ module.exports = app => {
                 .where({ us_id: userToDB.us_id })
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
-        }
-        // create user
-        else {
+        } else { // create user
             app.db('user')
                 .insert(userToDB)
                 .then(_ => res.status(204).send())
@@ -84,15 +82,16 @@ module.exports = app => {
                 'us_github as github',
                 'us_linkedin as linkedin',
                 'us_photo as photo')
-            .where({us_id: id}).first()
+            .where({ us_id: id }).first()
             .then(user => res.json(user))
             .catch(err => res.status(500).send(err))
     }
 
+    // delete user by id
     const del = (req, res) => {
         const id = req.params.id
         app.db('user')
-            .where({us_id: id}).first()
+            .where({ us_id: id }).first()
             .del()
             .then(_ => res.status(204).send())
             .catch(err => res.status(500).send(err))
