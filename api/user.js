@@ -11,7 +11,7 @@ module.exports = app => {
 
     // insert or edit an user
     const save = async (req, res) => {
-        // Cloning the body to user variable
+        // Cloning the body to user object
         const user = { ...req.body }
 
         if (req.params.id)
@@ -88,7 +88,7 @@ module.exports = app => {
     }
 
     // delete user by id
-    const del = (req, res) => {
+    const remove = (req, res) => {
         const id = req.params.id
         app.db('user')
             .where({ us_id: id }).first()
@@ -97,5 +97,5 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    return { save, get, getById, del }
+    return { save, get, getById, remove }
 }
