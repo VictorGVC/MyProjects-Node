@@ -16,4 +16,7 @@ module.exports = app => {
         .put(app.api.category.save)
         .get(app.api.category.getById)
         .delete(app.api.category.remove)
+
+    app.route('/project')
+        .post(app.api.project.save)
 }

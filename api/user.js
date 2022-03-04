@@ -24,7 +24,7 @@ module.exports = app => {
             notExistsError(user.confirmPassword, 'Invalid confirmation password')
             notEqualsError(user.password, user.confirmPassword, 'Password confirmation does not match')
 
-            // Validates whether the user is being created or edited
+            // gets the user by username
             const userFromDB = await app.db('user')
                 .where({ us_username: user.username }).first()
 
