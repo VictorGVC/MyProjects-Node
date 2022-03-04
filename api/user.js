@@ -61,6 +61,7 @@ module.exports = app => {
         return res.status(200)
     }
 
+    // get all users
     const get = (req, res) => {
         app.db('user')
             .select('us_id as id',
@@ -73,6 +74,7 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
+    // get user by id
     const getById = (req, res) => {
         const id = req.params.id
         app.db('user')
@@ -82,10 +84,19 @@ module.exports = app => {
                 'us_github as github',
                 'us_linkedin as linkedin',
                 'us_photo as photo')
-            .where({us_id: id})
+            .where({us_id: id}).first()
             .then(user => res.json(user))
             .catch(err => res.status(500).send(err))
     }
 
-    return { save, get, getById }
+    const del = (req, res) => {
+        const id = req.params.id
+        app.db('user')
+            .where({us_id: id}).first()
+            .del()
+            .then(_ => res.status(204).send())
+            .catch(err => res.status(500).send(err))
+    }
+
+    return { save, get, getById, del }
 }
