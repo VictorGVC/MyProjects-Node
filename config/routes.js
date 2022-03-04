@@ -19,4 +19,8 @@ module.exports = app => {
 
     app.route('/project')
         .post(app.api.project.save)
+        .get(app.api.project.get)
+
+    app.route('/project/:id')
+        .put(app.api.project.save)
 }

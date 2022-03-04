@@ -43,5 +43,18 @@ module.exports = app => {
         }
     }
 
-    return { save }
+    // get all projects
+    const get = (req, res) => {
+        app.db('project')
+            .select('pro_id as id',
+                'pro_name as name',
+                'pro_description as description',
+                'pro_readme as readme',
+                'pro_link as link',
+                'pro_user as user'
+            ).then(projects => res.json(projects))
+            .catch(err => res.status(500).send(err))
+    }
+
+    return { save, get }
 }
