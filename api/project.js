@@ -71,5 +71,15 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    return { save, get, getById }
+    // delete project by id
+    const remove = (req, res) => {
+        const id = req.params.id
+        app.db('project')
+            .where({ pro_id: id }).first()
+            .del()
+            .then(_ => res.status(204).send())
+            .catch(err => res.status(500).send(err))
+    }
+
+    return { save, get, getById, remove }
 }

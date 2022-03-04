@@ -24,4 +24,5 @@ module.exports = app => {
     app.route('/project/:id')
         .put(app.api.project.save)
         .get(app.api.project.getById)
+        .delete(app.api.project.remove)
 }
