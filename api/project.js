@@ -6,6 +6,7 @@ module.exports = app => {
     const save = async (req, res) => {
         // Cloning the body to project object
         const project = { ...req.body }
+        console.log(project)
 
         if (req.params.id)
             project.id = req.params.id
@@ -86,5 +87,34 @@ module.exports = app => {
         }
     }
 
-    return { save, get, getById, remove }
+    // * add item to project
+    const addItem = async (req, res) => {
+        // Cloning the body to projectItem object
+        const projectItem = { ...req.body }
+
+        // get project by id from db
+        const projectFromDB = await app.db('project')
+            .where({pro_id: projectItem.project }).first()
+        
+        // get item by id from db
+        const itemFromDB = await app.db('category_item')
+            .where({it_id: projectItem.item }).first()
+        
+        // validate if item exists
+        notExistsError(itemFromDB, 'Invalid item')
+
+        // validate if project of the item exists
+        notExistsError(projectFromDB, 'Invalid project')
+
+        // Creating an object with the same key names of the db
+        const projectItemToDB = app.utils.cloneObjWithDBPrefix(projectItem, 'pi_')
+
+        // save project item
+        app.db('project_item')
+            .insert(projectItemToDB)
+            .then(_ => res.status(204).send())
+            .catch(err => res.status(500).send(err))
+    }
+
+    return { save, get, getById, remove, addItem}
 }

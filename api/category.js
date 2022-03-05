@@ -1,6 +1,6 @@
 module.exports = app => {
     // import validations
-    const { notEqualsError, notExistsError, existsError,  notIncrementIdError} = app.api.utils.functions.validation
+    const { notEqualsError, notExistsError, existsError, notIncrementIdError } = app.api.utils.functions.validation
 
     // * insert or edit a category
     const save = async (req, res) => {
@@ -98,9 +98,12 @@ module.exports = app => {
             return res.status(400).send(error)
         }
 
-        // validate if category of the item exists
-        const projectFromDB = await app.db('category')
+        // get category by id from db
+        const itemFromDB = await app.db('category')
             .where({ cat_id: categoryItem.category }).first()
+
+        // validate if category of the item exists
+        notExistsError(itemFromDB, 'Invalid category')
 
         // Creating an object with the same key names of the db
         const categoryItemToDB = app.utils.cloneObjWithDBPrefix(categoryItem, 'it_')
@@ -121,7 +124,7 @@ module.exports = app => {
             const rowsDeleted = await app.db('category_item')
                 .where({ it_id: id }).first()
                 .del()
-                
+
             notExistsError(rowsDeleted, 'item not found')
             res.status(204).send()
         } catch (error) {

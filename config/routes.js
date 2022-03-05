@@ -12,11 +12,6 @@ module.exports = app => {
         .post(app.api.category.save)
         .get(app.api.category.get)
 
-    app.route('/item')
-        .post(app.api.category.addItem)
-
-    app.route('/item/:id')
-        .delete(app.api.category.removeItem)
 
     app.route('/category/:id')
         .put(app.api.category.save)
@@ -32,4 +27,13 @@ module.exports = app => {
         .put(app.api.project.save)
         .get(app.api.project.getById)
         .delete(app.api.project.remove)
+
+    app.route('/item')
+        .post(app.api.category.addItem)
+
+    app.route('/item/:id')
+        .delete(app.api.category.removeItem)
+
+    app.route('/projectitem')
+        .post(app.api.project.addItem)
 }
