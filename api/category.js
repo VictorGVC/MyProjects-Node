@@ -70,19 +70,22 @@ module.exports = app => {
     const remove = async (req, res) => {
         try {
             const id = req.params.id
+
+            // validate item id
             notIncrementIdError(id, 'Invalid id')
             const rowsDeleted = await app.db('category')
                 .where({ cat_id: id }).first()
                 .del()
+
             notExistsError(rowsDeleted, 'Category not found')
             res.status(204).send()
-        } catch (msg) {
-            res.status(500).send(msg)
+        } catch (error) {
+            res.status(500).send(error)
         }
     }
 
     // * add an item to the category
-    const addItem = (req, res) => {
+    const addItem = async (req, res) => {
 
         // Cloning the body to categoryItem object
         const categoryItem = { ...req.body }
@@ -90,19 +93,41 @@ module.exports = app => {
         try {
             // Validate fields
             notExistsError(categoryItem.name, 'Empty name')
-            notExistsError(categoryItem.category, 'Invalid category')
+            notExistsError(categoryItem.category, 'Invalid item')
         } catch (error) {
             return res.status(400).send(error)
         }
 
+        // validate if category of the item exists
+        const projectFromDB = await app.db('category')
+            .where({ cat_id: categoryItem.category }).first()
+
         // Creating an object with the same key names of the db
         const categoryItemToDB = app.utils.cloneObjWithDBPrefix(categoryItem, 'it_')
 
+        // save category item
         app.db('category_item')
-                .insert(categoryItemToDB)
-                .then(_ => res.status(204).send())
-                .catch(err => res.status(500).send(err))
+            .insert(categoryItemToDB)
+            .then(_ => res.status(204).send())
+            .catch(err => res.status(500).send(err))
     }
 
-    return { save, get, getById, remove, addItem }
+    const removeItem = async (req, res) => {
+        try {
+            const id = req.params.id
+
+            //validates item Id
+            notIncrementIdError(id, 'Invalid id')
+            const rowsDeleted = await app.db('category_item')
+                .where({ it_id: id }).first()
+                .del()
+                
+            notExistsError(rowsDeleted, 'item not found')
+            res.status(204).send()
+        } catch (error) {
+            res.status(500).send(error)
+        }
+    }
+
+    return { save, get, getById, remove, addItem, removeItem }
 }
