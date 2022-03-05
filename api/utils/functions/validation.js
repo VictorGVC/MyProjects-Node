@@ -2,7 +2,6 @@ module.exports = app => {
 
     // Validates if the value exists, if not, throw an message error 
     function notExistsError(value, msg) {
-        console.log(value)
         if (!value) throw msg
         if (Array.isArray(value) && value.length === 0) throw msg
         if (typeof value === 'string' && !value.trim()) throw msg

@@ -1,12 +1,11 @@
 module.exports = app => {
     // import validations
-    const { notEqualsError, notExistsError, existsError } = app.api.utils.functions.validation
+    const { notEqualsError, notExistsError, existsError, notIncrementIdError } = app.api.utils.functions.validation
 
     // Insert or update a project
     const save = async (req, res) => {
         // Cloning the body to project object
         const project = { ...req.body }
-        console.log(project)
 
         if (req.params.id)
             project.id = req.params.id
@@ -94,12 +93,12 @@ module.exports = app => {
 
         // get project by id from db
         const projectFromDB = await app.db('project')
-            .where({pro_id: projectItem.project }).first()
-        
+            .where({ pro_id: projectItem.project }).first()
+
         // get item by id from db
         const itemFromDB = await app.db('category_item')
-            .where({it_id: projectItem.item }).first()
-        
+            .where({ it_id: projectItem.item }).first()
+
         // validate if item exists
         notExistsError(itemFromDB, 'Invalid item')
 
@@ -116,5 +115,25 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    return { save, get, getById, remove, addItem}
+    const removeItem = async (req, res) => {
+        try {
+
+            const projectItem = { ...req.body }
+            
+
+            //validates Ids
+            notIncrementIdError(projectItem.item, 'Invalid item')
+            notIncrementIdError(projectItem.project, 'Invalid project')
+            const rowsDeleted = await app.db('project_item')
+                .where('pi_item', projectItem.item).andWhere('pi_project', projectItem.project).first()
+                .del()
+
+            notExistsError(rowsDeleted, 'item not found')
+            res.status(204).send()
+        } catch (error) {
+            res.status(500).send(error)
+        }
+    }
+
+    return { save, get, getById, remove, addItem, removeItem }
 }

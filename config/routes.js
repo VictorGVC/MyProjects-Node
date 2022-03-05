@@ -36,4 +36,5 @@ module.exports = app => {
 
     app.route('/projectitem')
         .post(app.api.project.addItem)
+        .delete(app.api.project.removeItem)
 }
