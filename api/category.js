@@ -2,7 +2,7 @@ module.exports = app => {
     // import validations
     const { notEqualsError, notExistsError, existsError,  notIncrementIdError} = app.api.utils.functions.validation
 
-    // insert or edit a category
+    // * insert or edit a category
     const save = async (req, res) => {
         // Cloning the body to category object
         const category = { ...req.body }
@@ -14,11 +14,11 @@ module.exports = app => {
             // Validate fields
             notExistsError(category.name, 'Empty name')
 
-            // Validates whether the category is being created or edited
+            // gets the user by username
             const categoryFromDB = await app.db('category')
                 .where({ cat_name: category.name }).first()
 
-            // If the category is being created validates if already exists
+            // Validates if already exists
             if (category.id)
                 existsError(categoryFromDB, 'Category already exists')
 
@@ -44,7 +44,7 @@ module.exports = app => {
         }
     }
 
-    // get all categories
+    // * get all categories
     const get = (req, res) => {
         app.db('category')
             .select('cat_id as id',
@@ -54,7 +54,7 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    // get category by id
+    // * get category by id
     const getById = (req, res) => {
         const id = req.params.id
         app.db('category')
@@ -66,7 +66,7 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    // delete category by id
+    // * delete category by id
     const remove = async (req, res) => {
         try {
             const id = req.params.id
@@ -81,14 +81,28 @@ module.exports = app => {
         }
     }
 
-    // add an item to the category
-    // const addItem = (req, res) => {
-        
-    //     const categoryItem = { ...req.body }
+    // * add an item to the category
+    const addItem = (req, res) => {
 
-    //     category.id = req.params.id
+        // Cloning the body to categoryItem object
+        const categoryItem = { ...req.body }
 
-    // }
+        try {
+            // Validate fields
+            notExistsError(categoryItem.name, 'Empty name')
+            notExistsError(categoryItem.category, 'Invalid category')
+        } catch (error) {
+            return res.status(400).send(error)
+        }
+
+        // Creating an object with the same key names of the db
+        const categoryItemToDB = app.utils.cloneObjWithDBPrefix(categoryItem, 'it_')
+
+        app.db('category_item')
+                .insert(categoryItemToDB)
+                .then(_ => res.status(204).send())
+                .catch(err => res.status(500).send(err))
+    }
 
     return { save, get, getById, remove, addItem }
 }

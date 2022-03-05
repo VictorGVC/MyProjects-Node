@@ -12,10 +12,14 @@ module.exports = app => {
         .post(app.api.category.save)
         .get(app.api.category.get)
     
+        
     app.route('/category/:id')
         .put(app.api.category.save)
         .get(app.api.category.getById)
         .delete(app.api.category.remove)
+        
+    app.route('/category/item')
+        .post(app.api.category.addItem)
 
     app.route('/project')
         .post(app.api.project.save)
