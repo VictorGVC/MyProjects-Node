@@ -9,6 +9,7 @@ app.db = db
 
 // load modules with consign
 consign()
+    .include('./config/passport.js')
     .then('./config/middlewares.js')
     .then('./api/utils/functions/validation.js')
     .then('./api/user.js')
