@@ -68,9 +68,10 @@ module.exports = app => {
 
     // * delete category by id
     const remove = async (req, res) => {
-        try {
-            const id = req.params.id
 
+        const id = req.params.id
+
+        try {
             // validate item id
             notIncrementIdError(id, 'Invalid id')
             const rowsDeleted = await app.db('category')
@@ -87,6 +88,7 @@ module.exports = app => {
     // * add an item to the category
     const addItem = async (req, res) => {
 
+        const id = req.params.id
         // Cloning the body to categoryItem object
         const categoryItem = { ...req.body }
 
@@ -100,7 +102,7 @@ module.exports = app => {
 
         // get category by id from db
         const itemFromDB = await app.db('category')
-            .where({ cat_id: categoryItem.category }).first()
+            .where({ cat_id: id }).first()
 
         // validate if category of the item exists
         notExistsError(itemFromDB, 'Invalid category')
@@ -116,9 +118,10 @@ module.exports = app => {
     }
 
     const removeItem = async (req, res) => {
-        try {
-            const id = req.params.id
 
+        const id = req.params.id
+        
+        try {
             //validates item Id
             notIncrementIdError(id, 'Invalid id')
             const rowsDeleted = await app.db('category_item')

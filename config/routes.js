@@ -28,13 +28,13 @@ module.exports = app => {
         .get(app.api.project.getById)
         .delete(app.api.project.remove)
 
-    app.route('/item')
+    app.route('category/:id/item')
         .post(app.api.category.addItem)
 
-    app.route('/item/:id')
+    app.route('category/item/:id')
         .delete(app.api.category.removeItem)
 
-    app.route('/projectitem')
+    app.route('project/:id/item')
         .post(app.api.project.addItem)
         .delete(app.api.project.removeItem)
 }

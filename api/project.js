@@ -88,12 +88,15 @@ module.exports = app => {
 
     // * add item to project
     const addItem = async (req, res) => {
+
+        const id = req.params.id
+
         // Cloning the body to projectItem object
         const projectItem = { ...req.body }
 
         // get project by id from db
         const projectFromDB = await app.db('project')
-            .where({ pro_id: projectItem.project }).first()
+            .where({ pro_id: id }).first()
 
         // get item by id from db
         const itemFromDB = await app.db('category_item')
@@ -116,16 +119,16 @@ module.exports = app => {
     }
 
     const removeItem = async (req, res) => {
-        try {
 
-            const projectItem = { ...req.body }
-            
+        const id = req.params.id
+        const projectItem = { ...req.body }
+        try {
 
             //validates Ids
             notIncrementIdError(projectItem.item, 'Invalid item')
-            notIncrementIdError(projectItem.project, 'Invalid project')
+            notIncrementIdError(id, 'Invalid project')
             const rowsDeleted = await app.db('project_item')
-                .where('pi_item', projectItem.item).andWhere('pi_project', projectItem.project).first()
+                .where('pi_item', projectItem.item).andWhere('pi_project', id).first()
                 .del()
 
             notExistsError(rowsDeleted, 'item not found')
