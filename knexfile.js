@@ -1,4 +1,4 @@
-const { db } = require('./db.env')
+const { db } = require('.env')
 
 // Update with your config settings.
 

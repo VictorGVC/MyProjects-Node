@@ -1,6 +1,6 @@
 module.exports = app => {
     // import validations
-    const { notEqualsError, notExistsError, existsError, notIncrementIdError } = app.api.utils.functions.validation
+    const { notExistsError, existsError, notIncrementIdError } = app.api.utils.functions.validation
 
     // * insert or edit a category
     const save = async (req, res) => {
