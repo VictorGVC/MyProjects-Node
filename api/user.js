@@ -28,6 +28,7 @@ module.exports = app => {
             const userFromDB = await app.db('user')
                 .where({ us_username: user.username }).first()
 
+            
             // If the user is being created validates if the username exists
             if (user.id)
                 existsError(userFromDB, 'User already exists')
