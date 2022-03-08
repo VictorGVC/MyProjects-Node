@@ -10,7 +10,7 @@ module.exports = app => {
     // validates if the value do not exists, if exists, throw an message error 
     function existsError(value, msg) {
         try {
-            existsError(value, msg)
+            notExistsError(value, msg)
         } catch (msg) {
             return
         }
