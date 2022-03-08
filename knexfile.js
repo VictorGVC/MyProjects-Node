@@ -1,4 +1,4 @@
-const { db } = require('./.env')
+//const { db } = require('./.env')
 
 // Update with your config settings.
 
@@ -7,7 +7,16 @@ const { db } = require('./.env')
  */
 
 // Informations to do the connection with database
-console.log(db)
+
+const db = {
+	host : process.env.HOST_SECRET,
+	port: 5432,
+	database: process.env.DATABASE_SECRET,
+	user: process.env.USER_SECRET,
+	password: process.env.PASSWORD_SECRET,
+	ssl: { rejectUnauthorized: false }
+}  
+
 module.exports = {
 		
 	client: 'postgresql',
