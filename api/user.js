@@ -30,7 +30,7 @@ module.exports = app => {
 
             
             // If the user is being created validates if the username exists
-            if (user.id)
+            if (user.username)
                 existsError(userFromDB, 'User already exists')
 
         } catch (error) {
