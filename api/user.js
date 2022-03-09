@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt-nodejs')
+const { use } = require('passport/lib')
 
 module.exports = app => {
     // import validations
@@ -16,6 +17,11 @@ module.exports = app => {
 
         if (req.params.id)
             user.id = req.params.id
+
+        if(!req.originalUrl.startsWith('/user')) 
+            user.admin = false
+        if(!req.user || !req.user.admin)
+            user.admin = false
 
         try {
             // Validate fields

@@ -16,7 +16,7 @@ consign()
     .then('./api/category.js')
     .then('./api/project.js')
     .then('./api/auth.js')
-    .then('./config/routes')
+    .then('./routes')
     .into(app)
 
 app.listen(process.env.PORT || 3000, () => {

@@ -1,4 +1,4 @@
-const admin = require('../admin')
+const admin = require('../config/admin')
 
 module.exports = app => {
     app.post('/signup', app.api.user.save)
@@ -18,9 +18,13 @@ module.exports = app => {
 
     // ! (not implemented yet) projects by user
     app.route('/user/:userid/project')
-    
+        .all(app.config.passport.authenticate())
+        .post(app.api.user.save)
+        .get(app.api.user.get)
+
     // ! (not implemented yet) projects by user and project id
     app.route('/user/:userid/project/:projectid')
-
-    
+        .all(app.config.passport.authenticate())
+        .post(app.api.user.save)
+        .get(app.api.user.get)
 }
