@@ -1,4 +1,4 @@
-const admin = require('../admin')
+const admin = require('../config/admin')
 
 module.exports = app => {
     app.route('/project')
