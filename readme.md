@@ -19,7 +19,7 @@ This is the Node.js backend of the multilanguage project whose main objective is
 
 ## Database Model 💾
 
-<img src="https://github.com/VictorGVC/ProjectMultilanguage-Node/blob/main/doc/database.png" width="400px">
+<img src="https://github.com/VictorGVC/ProjectMultilanguage-Node/blob/main/doc/database.png">
 
 ## License
 
