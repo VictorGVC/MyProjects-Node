@@ -18,9 +18,9 @@ module.exports = app => {
         if (req.params.id)
             user.id = req.params.id
 
-        if(!req.originalUrl.startsWith('/user')) 
+        if (!req.originalUrl.startsWith('/user'))
             user.admin = false
-        if(!req.user || !req.user.admin)
+        if (!req.user || !req.user.admin)
             user.admin = false
 
         try {
@@ -34,7 +34,7 @@ module.exports = app => {
             const userFromDB = await app.db('user')
                 .where({ us_username: user.username }).first()
 
-            
+
             // If the user is being created validates if the username exists
             if (user.username)
                 existsError(userFromDB, 'User already exists')
@@ -102,11 +102,28 @@ module.exports = app => {
             app.db('user')
                 .where({ us_id: id }).first()
                 .del()
-                res.status(204).send()
+            res.status(204).send()
         } catch (error) {
             res.status(500).send(error)
         }
     }
 
-    return { save, get, getById, remove }
+    const validateUser = (tokenUser, paramUser) => tokenUser.id == paramUser
+
+    // get projects from user
+    const getProjects = (req, res) => {
+
+    }
+
+    // get project from user by id
+    const getProjectById = (req, res) => {
+
+    }
+
+    // delete project from user
+    const removeProject = (req, res) => {
+
+    }
+
+    return { save, get, getById, remove, getProjectById, getProjects, removeProject }
 }
