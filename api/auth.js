@@ -53,7 +53,7 @@ module.exports = app => {
             if(userData) {
                 const token = jwt.decode(userData.token, authSecret)
                 if(new Date(token.exp * 1000) > new Date())
-                    return res.send(true)
+                    return res.send(generateToken(token))
             }
         } catch (error) {
             res.send('Your token has a problem!')
