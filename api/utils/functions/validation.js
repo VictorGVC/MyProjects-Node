@@ -19,7 +19,7 @@ module.exports = app => {
 
     // validates if the valueA is equal to valueB, if it's not, throw an message error
     function notEqualsError(valueA, valueB, msg) {
-        if (valueA !== valueB) throw msg
+        if (valueA != valueB) throw msg
     }
 
     function notIncrementIdError(value, msg) {

@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt-nodejs')
-const { use } = require('passport/lib')
+const jwt = require('jwt-simple')
+const { authSecret } = require('../.env')
 
 module.exports = app => {
     // import validations
@@ -108,11 +109,44 @@ module.exports = app => {
         }
     }
 
-    const validateUser = (tokenUser, paramUser) => tokenUser.id == paramUser
+    const getPayload = (req) => {
+        const token = req.headers.authorization.split(' ')[1]
+        const payload = jwt.decode(token, authSecret)
+        return payload
+    }
+
+    const validateUser = (req, msg = 'Invalid user id') => {
+        const payload = getPayload(req)
+        const userId = req.params.userid
+
+        try {
+            notEqualsError(payload.id, userId, msg)
+        } catch (msg) {
+            throw msg
+        }
+    }
 
     // get projects from user
     const getProjects = (req, res) => {
+        
+        const userId = req.params.userid
+        
+        try {
+            validateUser(req)
+        } catch (error) {
+            res.status(400).send(error)
+        }
 
+        app.db('project')
+            .select('pro_id as id',
+                'pro_name as name',
+                'pro_description as description',
+                'pro_readme as readme',
+                'pro_link as link',
+                'pro_user as user'
+            ).where({pro_user: userId})
+            .then(projects => res.json(projects))
+            .catch(err => res.status(500).send(err))
     }
 
     // get project from user by id
