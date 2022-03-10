@@ -4,7 +4,7 @@ const { authSecret } = require('../.env')
 
 module.exports = app => {
     // import validations
-    const { notEqualsError, notExistsError, existsError } = app.api.utils.functions.validation
+    const { notEqualsError, notExistsError, existsError, notIncrementIdError } = app.api.utils.functions.validation
 
     const encryptPassword = password => {
         const salt = bcrypt.genSaltSync(10)
@@ -110,6 +110,8 @@ module.exports = app => {
     }
 
     const getPayload = (req) => {
+        req.headers.authorization
+
         const token = req.headers.authorization.split(' ')[1]
         const payload = jwt.decode(token, authSecret)
         return payload
@@ -118,7 +120,7 @@ module.exports = app => {
     const validateUser = (req, msg = 'Invalid user id') => {
         const payload = getPayload(req)
         const userId = req.params.userid
-
+        
         try {
             notEqualsError(payload.id, userId, msg)
         } catch (msg) {
@@ -132,6 +134,7 @@ module.exports = app => {
         const userId = req.params.userid
         
         try {
+            notIncrementIdError(userId, 'Invalid user id')
             validateUser(req)
         } catch (error) {
             res.status(400).send(error)
@@ -155,6 +158,8 @@ module.exports = app => {
         const projectId = req.params.projectid
         
         try {
+            notIncrementIdError(userId, 'Invalid user id')
+            //notIncrementIdError(projectId, 'Invalid project id')
             validateUser(req)
         } catch (error) {
             res.status(400).send(error)
@@ -167,15 +172,30 @@ module.exports = app => {
                 'pro_readme as readme',
                 'pro_link as link',
                 'pro_user as user'
-            ).where({pro_user: userId, pro_id: projectId})
+            ).where({pro_id: projectId, pro_user: userId })
             .first()
-            .then(projects => res.json(projects))
+            .then(project => res.json(project))
             .catch(err => res.status(500).send(err))
     }
 
     // delete project from user
     const removeProject = (req, res) => {
+        const userId = req.params.userid
+        const projectId = req.params.projectid
+        
+        try {
+            notIncrementIdError(userId, 'Invalid user id')
+            notIncrementIdError(projectId, 'Invalid project id')
+            validateUser(req)
+        } catch (error) {
+            res.status(400).send(error)
+        }
 
+        app.db('project')
+            .where({ pro_id: projectId, pro_user: userId }).first()
+            .del()
+            .then(_ => res.status(204).end())
+            .catch(err => res.status(500).send(err))
     }
 
     return { save, get, getById, remove, getProjectById, getProjects, removeProject }

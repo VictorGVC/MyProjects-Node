@@ -16,13 +16,11 @@ module.exports = app => {
         .get(app.api.user.getById)
         .delete(admin(app.api.user.remove))
 
-    // ! (not implemented yet) projects by user
     app.route('/user/:userid/project')
         .all(app.config.passport.authenticate())
         .post(app.api.project.save)
         .get(app.api.user.getProjects)
 
-    // ! (not implemented yet) projects by user and project id
     app.route('/user/:userid/project/:projectid')
         .all(app.config.passport.authenticate())
         .put(app.api.project.save)
