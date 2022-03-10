@@ -109,6 +109,7 @@ module.exports = app => {
         }
     }
 
+    // get payload from headers with jwt
     const getPayload = (req) => {
         req.headers.authorization
 
@@ -117,6 +118,7 @@ module.exports = app => {
         return payload
     }
 
+    // validate with header token if user is valid
     const validateUser = (req, msg = 'Invalid user id') => {
         const payload = getPayload(req)
         const userId = req.params.userid
@@ -130,9 +132,9 @@ module.exports = app => {
 
     // get projects from user
     const getProjects = (req, res) => {
-        
         const userId = req.params.userid
         
+        // validate ids and user
         try {
             notIncrementIdError(userId, 'Invalid user id')
             validateUser(req)
@@ -140,6 +142,7 @@ module.exports = app => {
             res.status(400).send(error)
         }
 
+        // db select transaction
         app.db('project')
             .select('pro_id as id',
                 'pro_name as name',
@@ -157,14 +160,16 @@ module.exports = app => {
         const userId = req.params.userid
         const projectId = req.params.projectid
         
+        // validate ids and user
         try {
             notIncrementIdError(userId, 'Invalid user id')
-            //notIncrementIdError(projectId, 'Invalid project id')
+            notIncrementIdError(projectId, 'Invalid project id')
             validateUser(req)
         } catch (error) {
             res.status(400).send(error)
         }
 
+        // db select transaction
         app.db('project')
             .select('pro_id as id',
                 'pro_name as name',
@@ -183,6 +188,7 @@ module.exports = app => {
         const userId = req.params.userid
         const projectId = req.params.projectid
         
+        // validate ids and user
         try {
             notIncrementIdError(userId, 'Invalid user id')
             notIncrementIdError(projectId, 'Invalid project id')
@@ -191,6 +197,7 @@ module.exports = app => {
             res.status(400).send(error)
         }
 
+        // db delete transaction
         app.db('project')
             .where({ pro_id: projectId, pro_user: userId }).first()
             .del()
