@@ -151,7 +151,26 @@ module.exports = app => {
 
     // get project from user by id
     const getProjectById = (req, res) => {
+        const userId = req.params.userid
+        const projectId = req.params.projectid
+        
+        try {
+            validateUser(req)
+        } catch (error) {
+            res.status(400).send(error)
+        }
 
+        app.db('project')
+            .select('pro_id as id',
+                'pro_name as name',
+                'pro_description as description',
+                'pro_readme as readme',
+                'pro_link as link',
+                'pro_user as user'
+            ).where({pro_user: userId, pro_id: projectId})
+            .first()
+            .then(projects => res.json(projects))
+            .catch(err => res.status(500).send(err))
     }
 
     // delete project from user
