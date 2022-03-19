@@ -56,12 +56,12 @@ module.exports = app => {
             app.db('user')
                 .update(userToDB)
                 .where({ us_id: userToDB.us_id })
-                .then(_ => res.status(204).send())
+                .then(_ => res.status(201).send('User saved!'))
                 .catch(err => res.status(500).send(err))
         } else { // create user
             app.db('user')
                 .insert(userToDB)
-                .then(_ => res.status(204).send())
+                .then(_ => res.status(201).send('User saved!'))
                 .catch(err => res.status(500).send(err))
         }
     }
@@ -103,7 +103,7 @@ module.exports = app => {
             app.db('user')
                 .where({ us_id: id }).first()
                 .del()
-            res.status(204).send()
+            res.status(200).send('User deleted!')
         } catch (error) {
             res.status(500).send(error)
         }
@@ -194,7 +194,7 @@ module.exports = app => {
         app.db('project')
             .where({ pro_id: projectId, pro_user: userId }).first()
             .del()
-            .then(_ => res.status(204).end())
+            .then(_ => res.status(200).send('Project deleted!'))
             .catch(err => res.status(500).send(err))
     }
 
