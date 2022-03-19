@@ -33,12 +33,12 @@ module.exports = app => {
             app.db('project')
                 .update(projectToDB)
                 .where({ pro_id: projectToDB.pro_id })
-                .then(_ => res.status(204).send())
+                .then(_ => res.status(201).send('Project saved!'))
                 .catch(err => res.status(500).send(err))
         } else { // create project
             app.db('project')
                 .insert(projectToDB)
-                .then(_ => res.status(204).send())
+                .then(_ => res.status(201).send('Project saved!'))
                 .catch(err => res.status(500).send(err))
         }
     }
@@ -80,7 +80,7 @@ module.exports = app => {
             app.db('project')
                 .where({ pro_id: id }).first()
                 .del()
-            res.status(204).send()
+            res.status(200).send('Project deleted!')
         } catch (error) {
             res.status(500).send(error)
         }
@@ -114,7 +114,7 @@ module.exports = app => {
         // save project item
         app.db('project_item')
             .insert(projectItemToDB)
-            .then(_ => res.status(204).send())
+            .then(_ => res.status(200).send())
             .catch(err => res.status(500).send(err))
     }
 
@@ -132,7 +132,7 @@ module.exports = app => {
                 .del()
 
             notExistsError(rowsDeleted, 'item not found')
-            res.status(204).send()
+            res.status(200).send()
         } catch (error) {
             res.status(500).send(error)
         }

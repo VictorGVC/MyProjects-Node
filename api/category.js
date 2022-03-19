@@ -34,12 +34,12 @@ module.exports = app => {
             app.db('category')
                 .update(categoryToDB)
                 .where({ cat_id: categoryToDB.cat_id })
-                .then(_ => res.status(204).send())
+                .then(_ => res.status(201).send('Category saved!'))
                 .catch(err => res.status(500).send(err))
         } else { // create category
             app.db('category')
                 .insert(categoryToDB)
-                .then(_ => res.status(204).send())
+                .then(_ => res.status(201).send('Category saved!'))
                 .catch(err => res.status(500).send(err))
         }
     }
@@ -79,7 +79,7 @@ module.exports = app => {
                 .del()
 
             notExistsError(rowsDeleted, 'Category not found')
-            res.status(204).send()
+            res.status(200).send()
         } catch (error) {
             res.status(500).send(error)
         }
@@ -113,7 +113,7 @@ module.exports = app => {
         // save category item
         app.db('category_item')
             .insert(categoryItemToDB)
-            .then(_ => res.status(204).send())
+            .then(_ => res.status(200).send('Item added!'))
             .catch(err => res.status(500).send(err))
     }
 
@@ -129,7 +129,7 @@ module.exports = app => {
                 .del()
 
             notExistsError(rowsDeleted, 'item not found')
-            res.status(204).send()
+            res.status(200).send('Item removed!')
         } catch (error) {
             res.status(500).send(error)
         }
