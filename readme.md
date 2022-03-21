@@ -31,6 +31,35 @@ To achieve the objective I used:
 - ``PostgreSQL`` as relational database system;
 - ``Knex`` as SQL query builder and migrations manager;
 - ``Cors`` to make secure cross-origin requests and responses.
+- ``Postman`` as API client to make tests
+- ``Heroku`` as cloud CI/CD
+
+## How to use 👨‍💻
+
+This Node.JS backend was made to work with <a href="https://github.com/VictorGVC/ProjectMultilanguage-React">Frontend React</a>, but if you want to use it by yourself you can use an API client using the routes below and following the instructions for each one.
+
+### Routes
+
+In this session will be discribed all routes to access the software functions with the corresponding instructions.
+
+#### Signup
+``multilanguage-node.herokuapp.com/signup``
+
+First of all you need to register, because This project have a session control, if you don't you won't be able to access any other system function. To do this it's necessary to send via post a body with the username, password and confirmPassword fields to the Route above, the password and confirmPassword fields must be identical or it will return an error.
+
+Example:
+```json
+{
+    "username": "VictorGVC",
+    "password": "123456",
+    "confirmPassword": "123456"
+}
+```
+
+In case of success, the API will return status 201 with the message:
+```User saved```
+
+
 
 ## License 📝
 
