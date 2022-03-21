@@ -1,12 +1,8 @@
-
-<!-- [![Visits Badge](https://badges.pufler.dev/visits/VictorGVC/ProjectMultilanguage-Node)](https://github.com/VictorGVC/ProjectMultilanguage-Node) -->
-[![Updated Badge](https://badges.pufler.dev/updated/VictorGVC/ProjectMultilanguage-Node)](https://github.com/VictorGVC/ProjectMultilanguage-Node/commits/main)
-
 <h1 align="center">Multilanguage - Node.js</h1>
 
 ## About 🎯
 
-This is the Node.js backend of the multilanguage project whose main objective is to perform basic CRUD operations (Create, Read, Update and Delete) of ``users``, ``projects`` and ``technologies``. As a differential, it will be possible for the frontend to choose in which language the backend should run.
+This is the Node.js backend of the multilanguage project, whose main objective is to perform basic CRUD operations (Create, Read, Update and Delete) of ``users``, ``projects`` and ``technologies``. As a differential, it will be possible for the frontend to choose in which language the backend should run.
 
 ## Features 🌟
 
@@ -21,6 +17,21 @@ This is the Node.js backend of the multilanguage project whose main objective is
 
 <img src="https://github.com/VictorGVC/ProjectMultilanguage-Node/blob/main/doc/database.png">
 
-## License
+## Long Description 🧾
+
+This NodeJS repository is a part of the multilanguage project, whose main objective is to manage data, performing basic CRUP operations. In this project I decided to control ``users`` and ``projects`` to store my projects with my personal data like a portfolio.
+
+To achieve the objective I used:
+- ``Node.JS`` as runtime to ``Javascript``;
+- ``Express.JS`` to help create the api;
+- ``Consign`` to autoload scripfiles, simplifying the process of exporting and importing modules;
+- ``Bcrypt`` to encrypt passwords at signin and signup;
+- ``JWT`` for secure session control;
+- ``Passport`` to encrypt and decrypt the JWT token;
+- ``PostgreSQL`` as relational database system;
+- ``Knex`` as SQL query builder and migrations manager;
+- ``Cors`` to make secure cross-origin requests and responses.
+
+## License 📝
 
 [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
