@@ -88,14 +88,15 @@ In case of success, the API will return status 200 with a json like:
 Now you will need to save the token that you received to access another default function for three hours.
 To actually have access to the functions it is necessary to add two fields to the request header, as shown below:
 
-OBS: some functions is only for admins, if you want to be an admin ask to request access to the repository owner.
-
 ```json
 {
     "Authorization": "bearer {yourToken}",
     "Content-Type": "application/json"
 }
 ```
+
+OBS: some functions is only for admins, if you want to be an admin ask to request access to the repository owner.
+
 
 
 ## License 📝
