@@ -45,12 +45,12 @@ In this session will be discribed all routes to access the software functions wi
 #### Signup
 ``multilanguage-node.herokuapp.com/signup``
 
-First of all you need to register, because This project have a session control, if you don't you won't be able to access any other system function. To do this it's necessary to send via post a body with the username, password and confirmPassword fields to the Route above, the password and confirmPassword fields must be identical or it will return an error.
+First of all you need to register, because This project have a session control, if you don't you won't be able to access any other API function. To do this it's necessary to send via post a body with the username, password and confirmPassword fields to the Route above, the password and confirmPassword fields must be identical or it will return an error.
 
 Example:
 ```json
 {
-    "username": "VictorGVC",
+    "username": "victor",
     "password": "123456",
     "confirmPassword": "123456"
 }
@@ -59,6 +59,43 @@ Example:
 In case of success, the API will return status 201 with the message:
 ```User saved```
 
+#### Signin
+
+``multilanguage-node.herokuapp.com/signin``
+
+After the signup you need to signin to get the JWT token, without the JWT token you won't be able to access any other API function. To do this it's necessary to send via post a body with the username, password of your user.
+
+Example:
+```json
+{
+    "username": "victor",
+    "password": "123456"
+}
+```
+
+In case of success, the API will return status 200 with a json like:
+```json
+{
+    "id": 1,
+    "username": "victor",
+    "admin": false,
+    "iat": 1647880960,
+    "exp": 1647888160,
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ2aWN0b3IiLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTY0Nzg4MDk2MCwiZXhwIjoxNjQ3ODg4MTYwfQ.CJeTRyMBxwhz3TxJU8o3UU50QJFJVmHo44MHc2UqGoY"
+}
+```
+
+Now you will need to save the token that you received to access another default function for three hours.
+To actually have access to the functions it is necessary to add two fields to the request header, as shown below:
+
+OBS: some functions is only for admins, if you want to be an admin ask to request access to the repository owner.
+
+```json
+{
+    "Authorization": "bearer {yourToken}",
+    "Content-Type": "application/json"
+}
+```
 
 
 ## License 📝
