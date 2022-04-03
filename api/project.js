@@ -16,10 +16,10 @@ module.exports = app => {
             notExistsError(project.user, 'Invalid user')
 
             // validate if user of the project exists
-            const projectFromDB = await app.db('user')
+            const userFromDB = await app.db('user')
                 .where({ us_id: project.user }).first()
 
-            notExistsError(projectFromDB, 'Invalid user')
+            notExistsError(userFromDB, 'Invalid user')
 
         } catch (error) {
             return res.status(400).send(error)
