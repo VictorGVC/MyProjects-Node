@@ -1,8 +1,8 @@
-<h1 align="center">Multilanguage - Node.js</h1>
+<h1 align="center">MyProjects - Node.js</h1>
 
 ## About 🎯
 
-This is the Node.js backend of the multilanguage project, whose main objective is to perform basic CRUD operations (Create, Read, Update and Delete) of ``users``, ``projects`` and ``technologies``. As a differential, it will be possible for the frontend to choose in which language the backend should run.
+This is the Node.js backend of the my projects app, whose main objective is to perform basic CRUD operations (Create, Read, Update and Delete) of ``users``, ``projects`` and ``technologies``. As a differential, it will be possible for the frontend to choose in which language the backend should run.
 
 ## Features 🌟
 
